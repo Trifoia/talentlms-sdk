@@ -1,7 +1,7 @@
 {
   "name": "nodejs-template",
-  "version": "2.0.1",
-  "description": "Nodejs template used by Trifoia. Remember to replace this with project specific information!",
+  "version": "0.0.0",
+  "description": "Nodejs SDK for accessing the TalentLMS API",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive --test",
@@ -13,19 +13,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Trifoia/nodejs-template.git"
+    "url": "git+https://github.com/Trifoia/talentlms-sdk.git"
   },
   "keywords": [
-    "Template"
+    "SDK",
+    "API",
+    "Talent",
+    "TalentLMS",
+    "LMS"
   ],
   "author": "Trifoia (https://trifoia.com/)",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Trifoia/nodejs-template/issues"
+    "url": "https://github.com/Trifoia/talentlms-sdk/issues"
   },
-  "homepage": "https://github.com/Trifoia/nodejs-template#readme",
+  "homepage": "https://github.com/Trifoia/talentlms-sdk#readme",
   "devDependencies": {
     "eslint": "^7.12.1",
     "mocha": "^8.2.1"
+  },
+  "dependencies": {
+    "phin": "^3.5.1"
   }
 }

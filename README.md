@@ -1,14 +1,5 @@
-# Trifoia Nodejs Template
-Nodejs template used by Trifoia. Remember to replace this with project specific information!
-- This README file
-- Package.json
-  - name
-  - version
-  - description
-  - repository.url
-  - keywords
-  - bugs.url
-  - homepage
+# TalentLMS SDK
+Nodejs SDK for accessing the TalentLMS API
 
 # Template Notes
 ## NPM Script Commands
