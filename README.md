@@ -1,6 +1,8 @@
 # TalentLMS SDK
 Nodejs SDK for accessing the TalentLMS API
 
+This SDK is based off of [version 4.3](https://www.talentlms.com/pages/docs/TalentLMS-API-Documentation.pdf) of the TalentLMS api
+
 # Template Notes
 ## NPM Script Commands
 Run all tests
@@ -36,7 +38,7 @@ External resources should generally be mocked when testing to reduce the time it
 This project has built-in utilities for debugging unit tests with VSCode (breakpoints, process stepping, etc). Run the `Mocha` or `Mocha Quick` debug launch configuration to debug all tests or only quick tests respectively
 
 ## Configuration
-This project uses a standard configuration system that allows for global configuration values to be easily defined and overwritten locally. See the [config](./config.js) file in the root directory for more information
+This project uses a standard configuration system that allows for global configuration values to be easily defined and overwritten locally. See the [config](./config.js) file in the root directory for more information (Note: Only applies for package development)
 
 ## EcmaScript vs CommonJs
 Currently, all Nodejs projects use the CommonJs syntax because ESM modules are still considered "Experimental" as of Nodejs v14.0 and may be subject to breaking changes in future minor version updates. The existing configuration system also requires use of CommonJs and would need to be refactored significantly to support ESM

@@ -22,4 +22,44 @@ module.exports = {
      */
     errorOnUndefined: false
   },
+
+  /**
+   * General configuration for Talent LMS
+   */
+  talent: {
+    /**
+     * Talent API Key. This value is required to operate the sdk
+     */
+    apiKey: undefined,
+
+    /**
+     * Domain to use for API requests
+     */
+    domain: undefined,
+
+    /**
+     * Number of API calls allowed per hour
+     */
+    rateLimit: null,
+
+    /**
+     * The percentage of the total available rate limit that should be used
+     */
+    ratePercent: null,
+
+    /**
+     * Amount of time in ms to wait for a response before timing out
+     */
+    timeout: 60000,
+
+    /**
+     * Number of times to retry a failed request
+     */
+    retryCount: 2,
+
+    /**
+     * If additional logging should be performed
+     */
+    verbose: false,
+  }
 };
