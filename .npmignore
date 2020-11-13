@@ -1,0 +1,16 @@
+test
+test-integration
+.eslintignore
+.eslintrc.js
+buildspec.yml
+Makefile
+nodejs
+coverage
+build
+.nyc_output
+testing-data
+.env.json
+testing.js
+.vscode
+.conf.js
+scripts/
