@@ -22,7 +22,7 @@
 		"body": [
 			"'use strict';",
 			"",
-			"const assert = require('assert');",
+			"const assert = require('assert').strict;",
 			"",
 			"const $1 = require('$2');",
 			"",

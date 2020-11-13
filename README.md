@@ -1,9 +1,42 @@
 # TalentLMS SDK
 Nodejs SDK for accessing the TalentLMS API
 
-This SDK is based off of [version 4.3](https://www.talentlms.com/pages/docs/TalentLMS-API-Documentation.pdf) of the TalentLMS api
+This SDK is based off of [version 4.3](https://www.talentlms.com/pages/docs/TalentLMS-API-Documentation.pdf) of the TalentLMS api, and is designed to be an exact replica of the officially supported [PHP Library](http://www.talentlms.com/pages/libraries/php/talentlms-api-php-library.zip)
 
-# Template Notes
+# Installation
+```sh
+npm install --save talentlms-sdk
+```
+
+# Usage
+This library is designed to closely replicate the officially supported PHP Library. The official API documentation can be used to navigate this library, replacing PHP patterns with JavaScript patterns.
+
+## Instantiation
+An API key and domain are required when instantiating a new SDK instance. There are other optional fields, including fields for setting rate limits, described in the [TalentOpts](./src/classes/talent-opts.js) class
+```js
+const TalentLMSSdk = require('talentlms-sdk');
+const sdk = new TalentLMSSdk({
+  apiKey: 'YOUR-API-KEY',
+  domain: 'YOUR-DOMAIN'
+});
+```
+
+## Resources
+The following resources are available:
+- [Branch](./src/classes/resources/branch.js)
+- [Category](./src/classes/resources/category.js)
+- [Course](./src/classes/resources/course.js)
+- [Group](./src/classes/resources/group.js)
+- [SiteInfo](./src/classes/resources/site-info.js)
+- [Unit](./src/classes/resources/unit.js)
+- [User](./src/classes/resources/user.js)
+
+See in-line documentation for usage details, or refer to the official API documentation
+
+## Rate Limiting
+Automatic rate limiting can be enabled by supplying a `rateLimit` or `ratePercent` member to the SDK constructor. The `rateLimit` value will define a maximum number of requests allowed per hour. The `ratePercent` value will limit the request rate to a percentage (between 0 and 100) of the total number of allowed requests per hour
+
+# Development
 ## NPM Script Commands
 Run all tests
 ```sh

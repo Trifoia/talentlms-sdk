@@ -55,11 +55,26 @@ module.exports = {
     /**
      * Number of times to retry a failed request
      */
-    retryCount: 2,
+    retryCount: 0,
 
     /**
      * If additional logging should be performed
      */
     verbose: false,
+  },
+
+  /**
+   * Global configurations that are shared between all TalentLMSSdk instances
+   */
+  global: {
+    /**
+     * Endpoint parameters that should be base64 encoded
+     */
+    base64parameters: {
+      logout_redirect: true,
+      course_completed_redirect: true,
+      redirect_url: true,
+      domain_url: true
+    }
   }
 };

@@ -1,13 +1,15 @@
 {
-  "name": "nodejs-template",
-  "version": "0.0.0",
+  "name": "talentlms-sdk",
+  "version": "1.0.0",
   "description": "Nodejs SDK for accessing the TalentLMS API",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive --test",
     "test-quick": "mocha --recursive --quick --test",
+    "test-integration": "mocha --recursive test-integration",
     "test-debug": "node --inspect node_modules/.bin/mocha --recursive --test",
     "test-debug-quick": "node --inspect node_modules/.bin/mocha --recursive --quick --test",
+    "test-debug-integration": "node --inspect node_modules/.bin/mocha --recursive test-integration",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
   },

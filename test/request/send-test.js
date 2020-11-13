@@ -1,6 +1,6 @@
 'use strict';
 
-const assert = require('assert');
+const assert = require('assert').strict;
 
 const { talent } = require('../../config.js');
 const { wait } = require('../../utilities.js');
@@ -16,18 +16,18 @@ describe('send', function() {
       headers: {}
     };
     const lib = async (opts) => {
-      assert.strictEqual(opts.testOpts1, 'test1');
-      assert.strictEqual(opts.testOpts2, 'test2');
+      assert.equal(opts.testOpts1, 'test1');
+      assert.equal(opts.testOpts2, 'test2');
 
       return {
         statusCode: 200,
-        body: 'valid'
+        body: Buffer.from('valid')
       };
     };
 
     const result = await send(opts, talent, lib);
-    assert.strictEqual(result.statusCode, 200);
-    assert.strictEqual(result.body, 'valid');
+    assert.equal(result.statusCode, 200);
+    assert.equal(result.body, 'valid');
   });
 
   it('should retry the configured amount', async () => {
@@ -41,22 +41,22 @@ describe('send', function() {
     // request and then 2 retries
     let requestCount = 0;
     const lib = async (opts) => {
-      assert.strictEqual(opts.testOpts1, 'test1');
-      assert.strictEqual(opts.testOpts2, 'test2');
+      assert.equal(opts.testOpts1, 'test1');
+      assert.equal(opts.testOpts2, 'test2');
 
       assert.ok(requestCount <= talent.retryCount + 1);
 
       requestCount++;
       return {
         statusCode: 400,
-        body: 'invalid'
+        body: Buffer.from('invalid')
       };
     };
 
     const result = await send(opts, talent, lib);
-    assert.strictEqual(requestCount, talent.retryCount + 1);
-    assert.strictEqual(result.statusCode, 400);
-    assert.strictEqual(result.body, 'invalid');
+    assert.equal(requestCount, talent.retryCount + 1);
+    assert.equal(result.statusCode, 400);
+    assert.equal(result.body, 'invalid');
   });
 
   it('should handle timeout properly', async () => {
@@ -71,9 +71,9 @@ describe('send', function() {
     // request and then 2 retries
     let requestCount = 0;
     const lib = async (opts) => {
-      assert.strictEqual(opts.testOpts1, 'test1');
-      assert.strictEqual(opts.testOpts2, 'test2');
-      assert.strictEqual(opts.timeout, 10);
+      assert.equal(opts.testOpts1, 'test1');
+      assert.equal(opts.testOpts2, 'test2');
+      assert.equal(opts.timeout, 10);
 
       assert.ok(requestCount <= talent.retryCount + 1);
 
@@ -83,10 +83,52 @@ describe('send', function() {
     };
 
     const result = await send(opts, talent, lib);
-    assert.strictEqual(requestCount, talent.retryCount + 1);
-    assert.strictEqual(result.statusCode, 408);
-    assert.strictEqual(result.body.status, 'timeout');
+    assert.equal(requestCount, talent.retryCount + 1);
+    assert.equal(result.statusCode, 408);
+    assert.equal(result.body.status, 'timeout');
     assert.ok(result.body.timeWaited >= opts.timeout);
-    assert.strictEqual(result.body.timeoutMs, opts.timeout);
+    assert.equal(result.body.timeoutMs, opts.timeout);
+  });
+
+  it('should perform request without optional options', async () => {
+    const requestOpts = {
+      testOpts1: 'test1',
+      testOpts2: 'test2',
+      headers: {}
+    };
+    const lib = async (opts) => {
+      assert.equal(opts.testOpts1, 'test1');
+      assert.equal(opts.testOpts2, 'test2');
+
+      return {
+        statusCode: 200,
+        body: Buffer.from('valid')
+      };
+    };
+    const result = await send(requestOpts, {}, lib);
+    assert.equal(result.statusCode, 200);
+    assert.equal(result.body, 'valid');
+  });
+
+  it('should automatically parse body', async () => {
+    const opts = {
+      testOpts1: 'test1',
+      testOpts2: 'test2',
+      headers: {}
+    };
+    const lib = async (opts) => {
+      assert.equal(opts.testOpts1, 'test1');
+      assert.equal(opts.testOpts2, 'test2');
+
+      return {
+        statusCode: 200,
+        body: Buffer.from(JSON.stringify({exampleBody: 'test', aNum: 22}))
+      };
+    };
+
+    const result = await send(opts, talent, lib);
+    assert.equal(result.statusCode, 200);
+    assert.equal(result.body.exampleBody, 'test');
+    assert.equal(result.body.aNum, 22);
   });
 });

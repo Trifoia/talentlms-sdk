@@ -1,39 +1,48 @@
 'use strict';
 
-/*eslint-disable no-unused-vars*/
-const TalentOpts = require('../classes/talent-opts.js');
-/*eslint-enable no-unused-vars*/
-
 const {cloneDeep} = require('lodash');
 const phin = require('phin');
 
 const checkStatusCode = require('../utils/check-status-code.js');
 
 /**
- * Wrapper for the phin request library that adds automatic retries and additional logging
+ * Wrapper for the phin request library that adds automatic retries and additional logging. This
+ * method will also automatically parse the response body
  *
- * @param {object} opts Phin options
- * @param {TalentOpts} talentOpts Talent options
+ * @typedef SendOpts
+ * @property {boolean=} verbose If verbose logging should be performed
+ * @property {number=} retryCount The number of times to retry timed out requests
+ * 
+ * @param {object} requestOpts Phin options
+ * @param {SendOpts} opts Additional options for extra functionality
  * @param {phin} [requestLib] Request library. Only used for testing
  */
-const send = async (opts, talentOpts, requestLib = phin) => {
+const send = async (requestOpts, opts, requestLib = phin) => {
   let retries = 0;
   let response;
 
   do {
-    if (talentOpts.verbose) {
+    if (opts.verbose) {
       if (retries > 0) {
-        console.log(`Received status code ${response.statusCode}. Retrying ${retries} / ${talentOpts.retryCount}`);
+        console.log(`Received status code ${response.statusCode}. Retrying ${retries} / ${opts.retryCount}`);
       }
       // In verbose mode, log the request options while obscuring the api key
-      const logOpts = cloneDeep(opts);
+      const logOpts = cloneDeep(requestOpts);
       logOpts.headers.Authorization = 'SECRET';
       console.log(`Sending request with options: ${JSON.stringify(logOpts)}`);
     }
 
     const startTime = Date.now();
     try {
-      response = await requestLib(opts);
+      response = await requestLib(requestOpts);
+
+      // Attempt to parse the body
+      response.body = response.body.toString();
+      try {
+        response.body = JSON.parse(response.body);
+      } catch(e) {
+        // Allow failure, keep the body as a string
+      }
     } catch(e) {
       if (e.message !== 'Timeout reached') throw e;
 
@@ -43,11 +52,11 @@ const send = async (opts, talentOpts, requestLib = phin) => {
         body: {
           status: 'timeout',
           timeWaited: Date.now() - startTime,
-          timeoutMs: opts.timeout
+          timeoutMs: requestOpts.timeout
         }
       };
     }
-  } while (++retries <= talentOpts.retryCount && !checkStatusCode(response.statusCode));
+  } while (++retries <= opts.retryCount && !checkStatusCode(response.statusCode));
 
   return response;
 };
