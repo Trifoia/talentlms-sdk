@@ -31,6 +31,20 @@
       "skipFiles": [
         "<node_internals>/**"
       ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Mocha Integration",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script",
+        "test-debug-integration"
+      ],
+      "port": 9229,
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
     }
   ]
 }
