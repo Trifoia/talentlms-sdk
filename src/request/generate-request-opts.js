@@ -1,5 +1,7 @@
 'use strict';
 
+const { global } = require('../../config.js');
+
 /**
  * Generates an options object that can be used by the `send` method
  * 
@@ -27,8 +29,16 @@ const generateRequestOpts = (endpoint, opts, data = null) => {
   if (opts.timeout) requestOpts.timeout = opts.timeout;
 
   if (data) {
-    requestOpts.data = Object.keys(data).reduce((p, c) => {
-      return `${p}&${c}=${encodeURIComponent(data[c])}`;
+    requestOpts.data = Object.keys(data).reduce((previous, current) => {
+      let val = data[current];
+      if (typeof val === 'boolean') {
+        if (global.yesNoBooleans[current]) {
+          val = val ? 'yes' : 'no';
+        } else {
+          val = val ? 'on' : 'off';
+        }
+      }
+      return `${previous}&${current}=${encodeURIComponent(val)}`;
     }, '');
   }
 

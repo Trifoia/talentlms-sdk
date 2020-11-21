@@ -75,6 +75,13 @@ module.exports = {
       course_completed_redirect: true,
       redirect_url: true,
       domain_url: true
+    },
+
+    /**
+     * Booleans that should be converted to "yes" / "no" instead of "on" / "off"
+     */
+    yesNoBooleans: {
+      permanent: true
     }
   }
 };

@@ -43,6 +43,7 @@ class User extends ResourceBase {
    * @typedef DeleteParams
    * @property {string|number} user_id ID of the user to be deleted
    * @property {string|number=} deleted_by_user_id ID of the user that deleted the user
+   * @property {boolean=} permanent If the deletion should be permanent 
    * 
    * @param {DeleteParams} params Deletion parameters
    */
@@ -76,7 +77,7 @@ class User extends ResourceBase {
    * 
    * @typedef LogoutParams
    * @property {string|number} user_id ID of the user
-   * @property {string} next URL to redirect the user to once they are logged out
+   * @property {string=} next URL to redirect the user to once they are logged out
    *
    * @param {LogoutParams} params Logout parameters
    */
@@ -97,7 +98,7 @@ class User extends ResourceBase {
    * @property {string} last_name The user's last name
    * @property {string} email The user's email address
    * @property {string} login The user's username
-   * @property {string} password The user's password
+   * @property {string} password The user's password. Can be up to 30 characters
    * @property {string|number=} branch_id ID of a branch the user should be added to
    * @property {string|number=} group_id ID of a group the user should be added to
    * @property {string=} user_type The user type. Valid options are "Administrator",
