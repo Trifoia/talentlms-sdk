@@ -5,10 +5,10 @@
  * overridden. The configurations have two layers
  * 1. Category
  * 2. Value
- * 
+ *
  * This system does not support nesting beyond these two layers. Any object value will
  * be replaced with the entire object value in the secret config
- * 
+ *
  * All values marked as `undefined` must be defined in the .conf.js file unless the
  * `config.errorOnUndefined` value is set to `false`
  */
@@ -40,12 +40,12 @@ module.exports = {
     /**
      * Number of API calls allowed per hour
      */
-    rateLimit: null,
+    rateLimit: 2000,
 
     /**
      * The percentage of the total available rate limit that should be used
      */
-    ratePercent: null,
+    ratePercent: 99,
 
     /**
      * Amount of time in ms to wait for a response before timing out
@@ -55,7 +55,7 @@ module.exports = {
     /**
      * Number of times to retry a failed request
      */
-    retryCount: 0,
+    retryCount: 5,
 
     /**
      * If additional logging should be performed

@@ -32,7 +32,7 @@
   "homepage": "https://github.com/Trifoia/talentlms-sdk#readme",
   "devDependencies": {
     "eslint": "^7.14.0",
-    "mocha": "^8.2.1"
+    "mocha": "^10.7.0"
   },
   "dependencies": {
     "phin": "^3.5.1"
